@@ -1,13 +1,12 @@
-const Groq = require('groq-sdk');
-const express = require('express');
+import dotenv from 'dotenv';
+import Groq from 'groq-sdk';
+import express from 'express';
+dotenv.config();
 const app = express();
 
-app.listen(3000, () => {
-  console.log('listening through port 3000');
-}
-)
+app.use(express.json());
 
-const groq = new Groq();
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 async function ask(Q) {
   const chatCompletion = await groq.chat.completions.create({
@@ -28,5 +27,13 @@ async function ask(Q) {
   }
   console.log(res);
 }
+app.set('view engine', 'ejs');
 
-ask("trees"); 
+app.get('/', (req, res) => {
+  res.render('index'); 
+});
+
+app.listen(3000, () => {
+  console.log('listening through port 3000');
+}
+)
