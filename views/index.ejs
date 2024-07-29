@@ -47,14 +47,62 @@
             class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
             Business </div>
     </div>
+    <div class="flex justify-center items-center m-[50px]">
+        <div class=" w-[80%] bg-zinc-300 flex flex-col items-center p-[2%]" id="box">
+
+        </div>
+    </div>
     <script>
         document.querySelectorAll(".card").forEach(element => {
-            element.addEventListener("click", () => {
+            element.addEventListener("click", async () => {
+
                 const query = element.textContent.trim();
                 console.log(query);
-                
+                try {
+                    const response = await fetch(`/ask?name=${query}`);
+                    if (response) {
+                        const data = await response.json();
+                        console.log(typeof (data.result));
+                        console.log(JSON.parse(data.result));
+                        quiz(JSON.parse(data.result));
+
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
             });
         });
+        let box = document.getElementById('box');
+        function quiz(data) {
+            let i = 0;
+            if (Array.isArray(data)) {
+                data.forEach(e => {
+                    box.innerHTML += `<div class="h-[10%] w-[80%] border border-black rounded-[5px] p-[5px]">${e.question}</div>
+                    <div class="h-[10%] w-[80%] flex flex-row justify-between my-[15px] items-center">
+                        <input type="text" placeholder="Enter your answer" class=" bg-yellow-50 h-[80%] w-[60%]  text-center" id="answer-${i}">
+                        <button class="h-[80%] w-[20%] border border-black p-[5px]" answer ="${e.answer} index="${i}"">Submit</button>
+                    </div>
+                   <div id="feedback-${i}" class="h-[10%] w-[80%] my-[5px]"></div>
+                    `;
+                    i++;
+                });
+            } else {
+                console.error("Invalid data format. Expected an array.");
+            }
+        }
+        document.querySelectorAll("button").forEach(element => {
+            element.addEventListener("click", () => {
+                console.log("yoooo");
+                const answer = document.getElementById(`answer-${element.getAttribute("index")}`).value;
+                const correctAnswer = element.getAttribute("answer"); 
+                if (answer === correctAnswer) {
+                    document.getElementById(`feedback-${element.getAttribute("index")}`).textContent = "Correct!";
+                } else {
+                    document.getElementById(`feedback-${element.getAttribute("index")}`).textContent = `Incorrect! , The answer is ${correctAnswer}`;
+                }
+            });
+        });
+
     </script>
     <script src="../index.js"></script>
 </body>
