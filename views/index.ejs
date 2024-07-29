@@ -43,8 +43,19 @@
     </div>
     <script>
 document.querySelectorAll(".yo").forEach(element => {
-    element.addEventListener("click", () => {
-        alert("Hello World");
+    element.addEventListener("click", async() => {
+
+        const query = element.textContent.trim();
+        console.log(query);
+        try {
+            const response = await fetch(`/ask?name=${query}`);
+            if (response) {
+                const data = await response.json();
+                console.log(data.result);
+            }
+        } catch (err) {
+            console.log(err);
+        }
     });
 });
 </script>
