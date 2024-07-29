@@ -37,17 +37,25 @@
         </div>
     </div>
     <div class="flex md:flex-row flex-col gap-3 justify-evenly mt-[250px]">
-        <div class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light yo" >A r t s </div>
-        <div class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light yo" >Science  </div>
-        <div class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light yo" >Business  </div>
+        <div
+            class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
+            Arts </div>
+        <div
+            class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
+            Science </div>
+        <div
+            class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
+            Business </div>
     </div>
     <script>
-document.querySelectorAll(".yo").forEach(element => {
-    element.addEventListener("click", () => {
-        alert("Hello World");
-    });
-});
-</script>
+        document.querySelectorAll(".card").forEach(element => {
+            element.addEventListener("click", () => {
+                const query = element.textContent.trim();
+                console.log(query);
+                
+            });
+        });
+    </script>
     <script src="../index.js"></script>
 </body>
 
