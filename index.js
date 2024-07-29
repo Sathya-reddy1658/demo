@@ -2,12 +2,6 @@ const Groq = require('groq-sdk');
 const express = require('express');
 const app = express();
 
-
-
-document.getElementById('yo').addEventListener('click',()=>{
-  console.log("hello");
-})
-
 app.listen(3000, () => {
   console.log('listening through port 3000');
 }
@@ -34,3 +28,5 @@ async function ask(Q) {
   }
   console.log(res);
 }
+
+ask("trees"); 
