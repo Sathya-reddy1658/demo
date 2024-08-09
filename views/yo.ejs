@@ -1,0 +1,246 @@
+<!-- HTML and CSS in the same file -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karthik's Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style>
+        /* Global styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .cursor {
+            cursor: url('https:// Cursor URL') 5 5, auto;
+            /* custom cursor */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Section styles */
+        .section {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills section */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .skill-card {
+            margin: 1rem;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-card i {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        /* Projects section */
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .project-card {
+            margin: 1rem;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card button {
+            margin-right: 1rem;
+        }
+
+        /* Education section */
+        .education {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .education li {
+            margin-bottom: 1rem;
+        }
+
+        .education li::before {
+            content: "\2022";
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #666;
+        }
+
+        .education h3 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* GSAP animations */
+        .animate {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .animate.in {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Locomotive.js scrolling effects */
+        .scroll- animation {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        .scroll-animation.in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .dark-mode-toggle i {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body class="cursor"> <!-- Header -->
+    <header>
+        <h1>Karthik</h1>
+        <p>I love computers!</p>
+    </header> <!-- About section -->
+    <section class="section">
+        <h2 class="section-title">About</h2>
+        <p>Hey there! I am Karthik. I am a student and I have a great fascination for tech. I also make videos on my
+            YouTube channel. I am a noob (if I say so myself) in the software development space. This is one of my
+            attempts to put myself and my code out in the open and learn in public. Check out the code on my GitHub <a
+                href="https://github.com/ss-karthik">oh btw, I use Linux.</a></p>
+    </section> <!-- Skills section -->
+    <section class="section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills">
+            <div class="skill-card animate"> <i class="bi-js"></i>
+                <p>JavaScript</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-node"></i>
+                <p>Node</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-express"></i>
+                <p>Express</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-react"></i>
+                <p>React</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-postgresql"></i>
+                <p>PostgresQL</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-mongodb"></i>
+                <p>MongoDB</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-java"></i>
+                <p>Java</p>
+            </div>
+            <div class="skill-card animate"> <i class="bi-c"></i>
+                <p>C</p>
+            </div>
+        </div>
+    </section> <!-- Projects section -->
+    <section class="section">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects">
+            <div class="project-card animate">
+                <h3>Calculator</h3>
+                <p>Simple calculator app</p> <button><a href="https://ss-karthik.github.io/calculator/">View
+                        Live</a></button> <button><a href="https://github.com/ss-karthik/calculator">View
+                        Repo</a></button>
+            </div>
+            <div class="project-card animate">
+                <h3>Etch-A-Sketch</h3>
+                <p>Etch-A-Sketch game</p> <button><a href="https://ss-karthik.github.io/odin-etch-a-sketch/">View
+                        Live</a></button> <button><a href="https://github.com/ss-karthik/odin-etch-a-sketch">View
+                        Repo</a></button>
+            </div>
+        </div>
+    </section> <!-- Education section -->
+    <section class="section">
+        <h2 class="section-title">Education</h2>
+        <ul class="education">
+            <li>
+                <h3>10th (2021) at <span>PMS Bowenpally</span></h3>
+            </li>
+            <li>
+                <h3>12th (2023) at <span>Aakash</span></h3>
+            </li>
+            <li>
+                <h3>B.Tech-CSE (2027) at <span>CMRCET</span></h3>
+            </li>
+        </ul>
+    </section> <!-- Dark mode toggle -->
+    <div class="dark-mode-toggle" onclick="document.body.classList.toggle('dark-mode')"> <i class="bi-moon"></i> </div>
+    <!-- GSAP animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script> gsap.from(".animate", { duration: 1, opacity: 0, scale: 0.9, stagger: 0.1, delay: 0.5 }); </script>
+    <!-- Locomotive.js scrolling effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.3/locomotive-scroll.min.js"></script>
+    <script> const scroll = new LocomotiveScroll({ el: document.querySelector('[data-scroll-container]'), smooth: true }); </script>
+</body>
+
+</html>

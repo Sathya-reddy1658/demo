@@ -22,7 +22,7 @@
 
 <body class="bg-yellow-50 h-[200vh]">
     <div class="h-[10vh] w-full bg-slate-300 flex flex-row justify-between p-[40px] font-[gilroy] items-center">
-        <div class="mx-4  text-[80px] font-extrabold hover:scale-110 duration-700 text-gray-800">REMOND</div>
+        <div class="mx-4  text-[80px] font-extrabold hover:scale-110 duration-700 text-gray-800">G R O Q </div>
         <div class="flex md:flex-row flex-col font-bold text-[30px] gap-10 mr-[60px]">
             <div class="font-extralight">All blogs</div>
             <div class="font-extralight">About</div>
@@ -38,71 +38,110 @@
     </div>
     <div class="flex md:flex-row flex-col gap-3 justify-evenly mt-[250px]">
         <div
-            class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
+            class="cursor-pointer card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
             Arts </div>
         <div
-            class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
+            class="cursor-pointer card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
             Science </div>
         <div
-            class="card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
+            class="cursor-pointer card h-[200px] w-1/4 bg-zinc-300 rounded-[15px]  flex items-center justify-center text-[30px] font-light ">
             Business </div>
     </div>
     <div class="flex justify-center items-center m-[50px]">
-        <div class=" w-[80%] bg-zinc-300 flex flex-col items-center p-[2%]" id="box">
+        <div class=" w-[80%] bg-zinc-300 flex flex-col items-center p-[2%] rounded-[10px]" id="box">
+
+        </div>
+    </div>
+    <div class="w-100% flex justify-center mt-[10%]">
+
+        <form id="searchForm" class="w-[80%] flex justify-center" method="get">
+            <input type="text"
+                class="w-[70%] h-[60px] bg-slate-300 rounded-l-[35px] text-center text-black font-extralight text-[35px] text-center"
+                id="searchInput" name="input" placeholder="Wanna ask something . .?">
+            <div type="submit"
+                class="w-[20%] h-[60x] border border-black rounded-r-[35px] font-light text-black text-[30px] text-center hover:text-[35px] duration-200"
+                id="submit-btn">search</div>
+        </form>
+
+    </div>
+    <div class="chat w-full flex justify-center">
+        <div class="w-[80%] bg-yellow-100 font-light text-[30px] border border-black p-[25px] m-[30px] rounded-[5px]"
+            id="chat-box">
 
         </div>
     </div>
     <script>
+        let i = 0;
         document.querySelectorAll(".card").forEach(element => {
             element.addEventListener("click", async () => {
-
                 const query = element.textContent.trim();
                 console.log(query);
                 try {
                     const response = await fetch(`/ask?name=${query}`);
                     if (response) {
                         const data = await response.json();
-                        console.log(typeof (data.result));
                         console.log(JSON.parse(data.result));
                         quiz(JSON.parse(data.result));
-
+                    } else {
+                        console.error(`${response}`);
                     }
                 } catch (err) {
                     console.log(err);
                 }
             });
         });
-        let box = document.getElementById('box');
+
         function quiz(data) {
-            let i = 0;
+            i++;
+            const box = document.getElementById('box');
             if (Array.isArray(data)) {
                 data.forEach(e => {
-                    box.innerHTML += `<div class="h-[10%] w-[80%] border border-black rounded-[5px] p-[5px]">${e.question}</div>
+                    box.innerHTML += `
+                    <div class="h-[10%] w-[80%] border border-black rounded-[5px] p-[10px] m-[50px] text-[20px]">Q ${i} ) ${e.question}</div>
                     <div class="h-[10%] w-[80%] flex flex-row justify-between my-[15px] items-center">
-                        <input type="text" placeholder="Enter your answer" class=" bg-yellow-50 h-[80%] w-[60%]  text-center" id="answer-${i}">
-                        <button class="h-[80%] w-[20%] border border-black p-[5px]" answer ="${e.answer} index="${i}"">Submit</button>
+                        <input type="text" placeholder="Enter your answer" class="bg-yellow-50 h-[80%] w-[60%] text-center text-[20px] p-[8px] rounded-[10px]" id="answer-${i}">
+                        <button class="h-[80%] w-[20%] border border-black p-[5px] text-[20px] rounded-[8px] bg-green-300" data-answer="${e.answer}" data-index="${i}" ">Submit</button>
                     </div>
-                   <div id="feedback-${i}" class="h-[10%] w-[80%] my-[5px]"></div>
+                    <div id="feedback-${i}" class="h-[10%] w-[80%] text-[30px]"></div>
                     `;
                     i++;
+                });
+
+                document.querySelectorAll("button").forEach(element => {
+                    element.addEventListener("click", () => {
+                        const index = element.getAttribute("data-index");
+                        const answer = document.getElementById(`answer-${index}`).value.trim("").toLocaleLowerCase();
+                        const correctAnswer = element.getAttribute("data-answer").trim("").toLocaleLowerCase();
+                        const feedback = document.getElementById(`feedback-${index}`);
+                        feedback.textContent = "";
+                        if (answer === correctAnswer) {
+                            feedback.textContent = "Correct!";
+                            feedback.classList.add('text-green-600');
+                        } else {
+                            feedback.textContent = `Incorrect!  , The answer is ${correctAnswer}`;
+                            feedback.classList.add('text-red-500');
+                        }
+                    });
                 });
             } else {
                 console.error("Invalid data format. Expected an array.");
             }
         }
-        document.querySelectorAll("button").forEach(element => {
-            element.addEventListener("click", () => {
-                console.log("yoooo");
-                const answer = document.getElementById(`answer-${element.getAttribute("index")}`).value;
-                const correctAnswer = element.getAttribute("answer"); 
-                if (answer === correctAnswer) {
-                    document.getElementById(`feedback-${element.getAttribute("index")}`).textContent = "Correct!";
+        document.getElementById("submit-btn").addEventListener("click", async (e) => {
+            e.preventDefault();
+            const query = document.getElementById("searchInput").value.trim();
+            try {
+                const response = await fetch(`/search?name=${query}`);
+                if (response) {
+                    const result = await response.text();
+                    document.getElementById("chat-box").textContent = result;
                 } else {
-                    document.getElementById(`feedback-${element.getAttribute("index")}`).textContent = `Incorrect! , The answer is ${correctAnswer}`;
+                    console.error(`${response}`);
                 }
-            });
+            } catch (err) {
+                console.log(err);
+            }
         });
-
     </script>
     <script src="../index.js"></script>
 </body>
